@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    /* 中央揃えのスタイル */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      width: 300px;
+    }
+  </style>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
+    <input type="submit" value="ログイン">
+  </form>    
+{% endblock %}
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
+    <input type="submit" value="ログイン">
+</form>    
+{% endblock %} {% endcomment %}

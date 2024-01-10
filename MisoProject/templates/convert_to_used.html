@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>「使いたい味噌」を「使った味噌」に変更</h2>
+  <form method="post" action="{% url 'accounts:convert_to_used' pk=use_miso.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">変更する</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div style="display: flex; justify-content: space-between;">
+
+    <!-- 使いたい味噌一覧 -->
+    <div style="flex: 1; margin-right: 20px;">
+      <h2>「使いたい味噌」一覧</h2>
+      <ul>
+        {% for use_miso in use_misos %}
+          <li>
+            <!-- 商品情報の表示 -->
+            <p>{{ use_miso.name }}</p>
+            <img src="{{ use_miso.image.url }}" alt="Miso Image" style="max-width: 100px; max-height: 100px;">
+            <p>{{ use_miso.comment }}</p>
+           
+            <!-- 編集と削除へのリンク -->
+            <a href="{% url 'accounts:edit_use' pk=use_miso.pk %}">編集</a>
+            <a href="{% url 'accounts:delete_use' pk=use_miso.pk %}">削除</a>  
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- 使った味噌一覧 -->
+    <div style="flex: 1;">
+      <h2>「使った味噌」一覧</h2>
+      <ul>
+        {% for used_miso in used_misos %}
+          <li>
+            <!-- 商品情報の表示 -->
+            <p>{{ used_miso.name }}</p>
+            <img src="{{ used_miso.image.url }}" alt="Miso Image" style="max-width: 100px; max-height: 100px;">
+            <p>{{ used_miso.comment }}</p>
+            <p>{{ used_miso.thoughts }}</p>
+            <p>味の評価: {{ used_miso.taste_rating }}</p>
+            <p>外見の評価: {{ used_miso.appearance_rating }}</p>
+            
+            <!-- 編集と削除へのリンク -->
+            <a href="{% url 'accounts:edit_used' pk=used_miso.pk %}">編集</a>
+            <a href="{% url 'accounts:delete_used' pk=used_miso.pk %}">削除</a>  
+            
+            
+          {% if used_miso in favorites %}
+            <p>❤ お気に入り済み</p>
+           {% else %}
+            <p><a href="{% url 'accounts:toggle_favorite' pk=used_miso.pk %}?next={% url 'accounts:product_list' %}">❤ お気に入りに追加</a></p>    
+           {% endif %} 
+
+           
+            
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+{% endblock %}
+
+ 
+
+
+
+
+
+{% comment %} {% block content %}
+  <!-- 使いたい味噌一覧 -->
+  <h2>「使いたい味噌」一覧</h2>
+  <ul>
+    {% for use_miso in use_misos %}
+      <li>
+        <!-- 商品情報の表示 -->
+        <p>{{ use_miso.name }}</p>
+        <img src="{{ use_miso.image.url }}" alt="Miso Image" style="max-width: 100px; max-height: 100px;">
+        <p>{{ use_miso.comment }}</p>
+       
+        <!-- 編集と削除へのリンク -->
+        <a href="{% url 'accounts:edit_use' pk=use_miso.pk %}">編集</a>
+        <a href="{% url 'accounts:delete_use' pk=use_miso.pk %}">削除</a>  
+        
+      
+      </li>
+    {% endfor %}
+  </ul>
+
+  <!-- 使った味噌一覧 -->
+  <h2>「使った味噌」一覧</h2>
+  <ul>
+    {% for used_miso in used_misos %}
+      <li>
+        <!-- 商品情報の表示 -->
+        <p>{{ used_miso.name }}</p>
+        <img src="{{ used_miso.image.url }}" alt="Miso Image" style="max-width: 100px; max-height: 100px;">
+        <p>{{ used_miso.comment }}</p>
+        <p>{{ used_miso.thoughts }}</p>
+        <p>味の評価: {{ used_miso.taste_rating }}</p>
+        <p>外見の評価: {{ used_miso.appearance_rating }}</p>
+        
+        <!-- 編集と削除へのリンク -->
+        <a href="{% url 'accounts:edit_used' pk=used_miso.pk %}">編集</a>
+        <a href="{% url 'accounts:delete_used' pk=used_miso.pk %}">削除</a>  
+        
+    {% if used_miso in favorites %}
+       <p><a href="{% url 'accounts:toggle_favorite' pk=used_miso.pk %}?next={% url 'accounts:product_list' %}" class="favorite-link" style="text-decoration: none; color: #000;">❤ お気に入り解除</a></p>
+    {% else %}
+       <p><a href="{% url 'accounts:toggle_favorite' pk=used_miso.pk %}?next={% url 'accounts:product_list' %}" class="favorite-link" style="text-decoration: none; color: #000;">❤ お気に入りに追加</a></p>    
+       {% comment %} <p><a href="{% url 'accounts:toggle_favorite' pk=used_miso.pk %}" class="favorite-link" style="text-decoration: none; color: #000;">❤ お気に入りに追加</a></p> {% endcomment %}
+    {% comment %} {% endif %}
+    
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
+ {% endcomment %} 

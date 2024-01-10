@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="center-container" style="display: flex; justify-content: center; align-items: center; height: 90vh;">
+    <div class="center-text">
+      <h2>「{{ use_miso.name }}」を削除しますか？</h2>
+      <form method="post" action="{% url 'accounts:delete_use' pk=use_miso.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="削除する">
+      </form>
+      <a href="{% url 'accounts:product_list' %}">キャンセル</a>
+    </div>
+  </div>
+{% endblock %}
+
+
+
+
+
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>「{{ use_miso.name }}」を削除しますか？</h2>
+  <form method="post" action="{% url 'accounts:delete_use' pk=use_miso.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="削除する">
+  </form>
+  <a href="{% url 'accounts:product_list' %}">キャンセル</a>
+{% endblock %}  {% endcomment %}
+
+
+
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+  <div class="center-container">
+    <div class="center-text">
+      <h2>「{{ use_miso.name }}」を削除しますか？</h2>
+      <form method="post" action="{% url 'accounts:delete_use' pk=use_miso.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="削除する">
+      </form>
+      <a href="{% url 'accounts:product_list' %}">キャンセル</a>
+    </div>
+  </div>
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+
+ 

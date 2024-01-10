@@ -1,0 +1,5 @@
+body {
+    -webkit-text-size-adjust: 100%; /* Chrome 54+, Chrome Android 54+, Safari 9+ */
+    text-size-adjust: 100%; /* Chrome 54+, Chrome Android 54+, Edge 79+, Firefox, Safari */
+  }
+  

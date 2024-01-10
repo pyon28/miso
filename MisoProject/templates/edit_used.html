@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center-container" style="display: flex; justify-content: center; align-items: center; height: 90vh;">
+    <div class="center-text">
+  <h2>「{{ form.instance.name }}」の編集</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="保存">
+  </form>
+  <a href="{% url 'accounts:product_list' %}">キャンセル</a>
+  </div>
+</div>
+{% endblock %}

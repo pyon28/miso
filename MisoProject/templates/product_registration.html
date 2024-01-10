@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%; /* 横幅を100%に設定 */
+      max-width: 900px; /* 必要に応じて適切な横幅を設定 */
+      margin: 10px; /* 間隔を追加するための margin */
+    }
+
+    .form-column {
+      flex: 1;
+      margin-bottom: 50px; /* フォームとフォームの間の余白 */
+    }
+    .form-column:last-child {
+      margin-right: 0; /* 最後のフォームには余白を適用しない */  
+    }
+  </style>
+
+  
+
+  <div class="form-container">
+    <div class="form-column">
+      <form method="post" action="{% url 'accounts:product_registration' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- 使いたい味噌の登録フォーム -->
+        <h3>使いたい味噌</h3>
+        {{ use_form.as_p }}
+        <input type="submit" name="use_submit" value="使いたい味噌を登録">
+      </form>
+    </div>
+
+    <div class="form-column">
+      <form method="post" action="{% url 'accounts:product_registration' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- 使った味噌の登録フォーム -->
+        <h3>使った味噌</h3>
+        {{ used_form.as_p }}
+        <input type="submit" name="used_submit" value="使った味噌を登録">
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+
+
+{% comment %} {% extends 'base.html' %}
+
+<!-- product_registration.html -->
+
+{% block content %}
+ <style>
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* 横幅を100%に設定 */
+    max-width: 900px; /* 必要に応じて適切な横幅を設定 */
+    margin: 10px; /* 間隔を追加するための margin */
+  }
+
+  .form-column {
+    flex: 1;
+    margin-bottom: 50px; /* フォームとフォームの間の余白 */
+  }
+  .form-column:last-child {
+    margin-right: 0; /* 最後のフォームには余白を適用しない */  
+  }
+ </style>
+
+<h2>商品登録</h2>
+
+ <div class="form-container">
+  <div class="form-column">
+    <form method="post" action="{% url 'accounts:product_registration' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- 使いたい味噌の登録フォーム -->
+      <h3>使いたい味噌</h3>
+      {{ use_form.as_p }}
+      <input type="submit" name="use_submit" value="使いたい味噌を登録">
+    </form>
+  </div>
+
+  <div class="form-column">
+    <form method="post" action="{% url 'accounts:product_registration' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- 使った味噌の登録フォーム -->
+      <h3>使った味噌</h3>
+      {{ used_form.as_p }}
+      <input type="submit" name="used_submit" value="使った味噌を登録">
+    </form>
+  </div>
+ </div>
+{% block content %} {% endcomment %}
+
+{% comment %} <style>
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .navbar a {
+        margin-right: 20px; /* リンク間の余白を調整 */
+    }
+</style> {% endcomment %}
+
+ {% comment %} <div class="navbar">
+    <a class="navbar-brand" href="{% url 'accounts:home' %}">ホーム</a>
+    <a class="navbar-brand" href="{% url 'accounts:product_list' %}">商品一覧</a>
+</div>  {% endcomment %}
+
+
+
+{% comment %} <!-- 商品一覧ページへのリンク -->
+<a href="{% url 'accounts:product_list' %}">商品一覧</a>
+<a class="navbar-brand" href="{% url 'accounts:home' %}">ホーム</a> {% endcomment %}
+
+
+
+
+{% comment %} <!-- product_registration.html -->
+<h2>商品登録</h2>
+
+<style>
+  .form-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .form-column {
+    flex: 1;
+  }
+</style>
+
+<div class="form-container">
+  <div class="form-column">
+    <form method="post" action="{% url 'accounts:product_registration' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- 使いたい味噌の登録フォーム -->
+      {{ use_form.as_p }}
+      <input type="submit" name="use_submit" value="使いたい味噌を登録">
+    </form>
+  </div>
+
+  <div class="form-column">
+    <form method="post" action="{% url 'accounts:product_registration' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- 使った味噌の登録フォーム -->
+      {{ used_form.as_p }}
+      <input type="submit" name="used_submit" value="使った味噌を登録">
+    </form>
+  </div>
+</div>
+
+<!-- 商品一覧ページへのリンク -->
+<a href="{% url 'accounts:product_list' %}">商品一覧</a>
+
+
+
+ {% endcomment %}

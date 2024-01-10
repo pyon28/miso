@@ -1,0 +1,109 @@
+<!-- my_page.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>マイページ</h2>
+
+  <!-- お気に入り一覧へのリンク -->
+  <a href="{% url 'accounts:my_favorite' %}">お気に入り一覧</a>
+
+  <!-- 他のコンテンツ... -->
+{% endblock %}
+
+
+{% comment %} <!-- my_page.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>マイページ</h2>
+
+  <!-- お気に入り一覧 -->
+  <h3>お気に入り一覧</h3>
+  <ul>
+    {% for favorite in favorites %}
+      <li>
+        <!-- 商品情報の表示 -->
+        <p>{{ favorite.name }}</p>
+        <img src="{{ favorite.image.url }}" alt="Miso Image" style="max-width: 100px; max-height: 100px;">
+        <p>{{ favorite.comment }}</p>
+        
+        <!-- お気に入り解除へのリンク -->
+        <a href="{% url 'accounts:toggle_favorite' pk=favorite.pk %}?next={% url 'accounts:my_page' %}">❤ お気に入り解除</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+
+ {% endcomment %}
+
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+  <h2>マイページ</h2>
+  
+  <h3>お気に入り商品一覧</h3>
+  <ul>
+    {% for favorite_miso in user.favorite_used_misos.all %}
+      <li>
+        <p>{{ favorite_miso.name }}</p>
+        <img src="{{ favorite_miso.image.url }}" alt="{{ favorite_miso.name }} Image">
+        <p> {{ favorite_miso.thoughts }}</p>
+        <p>味の評価: {{ favorite_miso.taste_rating }}</p>
+        <p>外見の評価: {{ favorite_miso.appearance_rating }}</p>
+        
+        <!-- 他の商品情報も表示する場合はここに追加 -->
+
+        <!-- お気に入りから削除するリンク -->
+        <p><a href="{% url 'accounts:toggle_favorite' pk=favorite_miso.pk %}?next={% url 'accounts:my_page' %}" class="favorite-link" style="text-decoration: none; color: #000;">❤ お気に入り解除</a></p>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <!-- 他のコンテンツも表示する場合はここに追加 -->
+  
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+{% comment %} <!-- my_page.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>マイページ</h2>
+  
+  <h3>お気に入り商品一覧</h3>
+  <ul>
+    {% comment %} {% for favorite_miso in favorites %} {% endcomment %}
+    {% comment %} {% for favorite_miso in user.favorites.all %}
+      <li>
+        <p>{{ favorite_miso.name }}</p>
+        <img src="{{ favorite_miso.image.url }}" alt="{{ favorite_miso.name }} Image">
+        <p> {{ favorite_miso.comment }}</p>
+        <p>{{ favorite_miso.thoughts }}</p>
+        <p>味の評価: {{ favorite_miso.taste_rating }}</p>
+        <p>外見の評価: {{ favorite_miso.appearance_rating }}</p>
+        
+        <!-- 他の商品情報も表示する場合はここに追加 -->
+
+        <!-- お気に入りから削除するリンク -->
+        {% comment %} <a href="{% url 'accounts:toggle_favorite' pk=favorite_miso.pk %}">お気に入りから削除</a> {% endcomment %}
+        {% comment %} <p><a href="{% url 'accounts:toggle_favorite' pk=favorite_miso.pk %}?next={% url 'accounts:my_page' %}" class="favorite-link" style="text-decoration: none; color: #000;">❤ お気に入り解除</a></p>
+        
+      </li>
+    {% endfor %}
+  </ul>
+
+  <!-- 他のコンテンツも表示する場合はここに追加 -->
+  
+{% endblock %} {% endcomment %} 
+
+  <a href="{% url 'accounts:password_change' %}">パスワード変更</a>
+
+
