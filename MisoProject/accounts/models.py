@@ -64,7 +64,6 @@ class Used_Miso(models.Model):
     favorites = models.ManyToManyField(Users, related_name='favorite_used_misos', blank=True)
     
    
-
     def __str__(self):
         return self.name
 

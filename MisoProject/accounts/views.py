@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from .models import Use_Miso, Used_Miso
-from .forms import (Use_MisoForm, Used_MisoForm, ConvertToUsedForm, CustomUserCreationForm, 
+from .forms import (Use_MisoForm, Used_MisoForm, CustomUserCreationForm, 
 CustomPasswordChangeForm) 
 from django.views import View
 from .models import Product
@@ -209,29 +209,8 @@ class ProductListView(View):
         return redirect(redirect_url)
 
 
-# class ToggleFavoriteView(View):
-#     @method_decorator(login_required, name='dispatch')
-#     def get(self, request, pk):
-#         miso = get_object_or_404(Used_Miso, pk=pk)
-#         user = request.user
-
-#         # お気に入りのトグル
-#         if miso.favorites.filter(pk=user.id).exists():
-#             miso.favorites.remove(user)
-#         else:
-#             miso.favorites.add(user)
-
-#         # リダイレクト先のURLを取得
-#         redirect_url = request.GET.get('next', 'accounts:my_page')
-        
-#         # リダイレクト
-#         return redirect(redirect_url)  
-    
-    
-# views.py
-
+@method_decorator(login_required, name='dispatch')
 class ToggleFavoriteView(View):
-    @method_decorator(login_required, name='dispatch')
     def get(self, request, pk):
         miso = get_object_or_404(Used_Miso, pk=pk)
         user = request.user
@@ -282,6 +261,7 @@ class ToggleFavoriteView(View):
 #         favorites = Used_Miso.objects.filter(favorites=request.user)
         
 #         return render(request, self.template_name, {'favorites': favorites})    
+
     
 logger = logging.getLogger(__name__)
 
@@ -298,6 +278,7 @@ class MyFavoriteView(View):
 
         # テンプレートにデータを渡す
         return render(request, self.template_name, {'favorites': favorites})    
+            
             
 #使いたい味噌　編集    
 class EditUseView(View):
@@ -439,25 +420,25 @@ class ProductRegistrationView(View):
         })
         
 
-class ConvertToUsedView(View):
-    template_name = 'convert_to_used.html'
+class SaveAsUsedView(View):
+    template_name = 'accounts/save_as_used.html'  # テンプレートファイルが必要な場合は指定
+    success_url = reverse_lazy('accounts:product_list')
 
     def get(self, request, pk):
-        use_miso = get_object_or_404(Used_Miso, pk=pk)
-        form = ConvertToUsedForm(instance=use_miso)
-        return render(request, self.template_name, {'form': form, 'use_miso': use_miso})
+        use_miso = get_object_or_404(Use_Miso, pk=pk)
 
-    def post(self, request, pk):
-        use_miso = get_object_or_404(Used_Miso, pk=pk)
-        form = ConvertToUsedForm(request.POST, instance=use_miso)
-        if form.is_valid():
-            use_miso.used_miso = True
-            use_miso.save()
-            return redirect('accounts:product_list')  
-        return render(request, self.template_name, {'form': form, 'use_miso': use_miso})
+        Used_Miso.objects.create(
+            name=use_miso.name,
+            image=use_miso.image,
+            # comment=use_miso.comment,
+            thoughts="",  # 適切な値をセット
+            taste_rating=0,  # 適切な値をセット
+            appearance_rating=0,  # 適切な値をセット
+        )
 
+        use_miso.delete()
 
-
+        return redirect(self.success_url)
 
 
 

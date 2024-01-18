@@ -3,8 +3,9 @@ from .views import(
     HomeView, RegistUserView, UserLoginView,     
     UserLogoutView, UserView,  AuthorityView,
     Use_MisoView, Used_MisoView,ProductListView, ProductRegistrationView,
-    EditUseView, DeleteUseView, EditUsedView, DeleteUsedView, ConvertToUsedView,
-    MyPageView, CustomPasswordChangeView,   MyFavoriteView, ToggleFavoriteView
+    EditUseView, DeleteUseView, EditUsedView, DeleteUsedView, 
+    MyPageView, CustomPasswordChangeView,   MyFavoriteView, ToggleFavoriteView,
+    SaveAsUsedView
 )
 
 from . import views
@@ -29,11 +30,11 @@ urlpatterns =[
     path('use_miso/<int:pk>/delete/', DeleteUseView.as_view(), name='delete_use'),
     path('used_miso/<int:pk>/edit/', EditUsedView.as_view(), name='edit_used'),
     path('used_miso/<int:pk>/delete/', DeleteUsedView.as_view(), name='delete_used'),
-    path('convert-to-used/<int:pk>/', ConvertToUsedView.as_view(), name='convert_to_used'),
     path('toggle_favorite/<int:pk>/', MyPageView.as_view(), name='toggle_favorite'),
     path('password_change/', CustomPasswordChangeView.as_view(), name='password_change'),
     path('toggle_favorite/<int:pk>/', ToggleFavoriteView.as_view(), name='toggle_favorite'),
     path('my_favorite/', MyFavoriteView.as_view(), name='my_favorite'),
+    path('save_as_used/<int:pk>/', SaveAsUsedView.as_view(), name='save_as_used'),
 #     path('add_to_favorites/<int:pk>/', ToggleFavoriteView.as_view(), name='add_to_favorites'),
  ]
 

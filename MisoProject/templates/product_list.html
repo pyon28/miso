@@ -17,6 +17,12 @@
             <!-- 編集と削除へのリンク -->
             <a href="{% url 'accounts:edit_use' pk=use_miso.pk %}">編集</a>
             <a href="{% url 'accounts:delete_use' pk=use_miso.pk %}">削除</a>  
+
+            <!-- 使った味噌として保存へのリンク -->
+            <p>
+            <a href="{% url 'accounts:save_as_used' pk=use_miso.pk %}" style="display: inline-block;">使った味噌として保存</a>
+            </p>
+
           </li>
         {% endfor %}
       </ul>

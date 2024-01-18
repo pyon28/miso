@@ -81,11 +81,6 @@ class Used_MisoForm(forms.ModelForm):
         }
 
 
-class ConvertToUsedForm(forms.ModelForm):
-    class Meta:
-        model = Used_Miso
-        fields = ['used_miso']  # ここに変更したいフィールドを指定
-
-    def __init__(self, *args, **kwargs):
-        super(ConvertToUsedForm, self).__init__(*args, **kwargs)
-        
+class ToggleFavoriteForm(forms.Form):
+    # お気に入りのトグルに関連するフォームの定義
+    pass  # 必要に応じてフィールドを追加

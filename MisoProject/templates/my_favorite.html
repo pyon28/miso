@@ -14,6 +14,7 @@
         
         <!-- お気に入り解除へのリンク -->
         <a href="{% url 'accounts:toggle_favorite' pk=favorite.pk %}?next={% url 'accounts:my_favorite' %}">❤ お気に入り解除</a>
+
       </li>
     {% endfor %}
   </ul>
@@ -23,23 +24,3 @@
 
 
 
-<!-- my_favorite.html -->
-
-{% comment %} {% extends 'base.html' %}
-
-{% block content %}
-  <h2>お気に入り一覧</h2>
-  <ul>
-    {% for favorite in favorites %}
-      <li>
-        <!-- 商品情報の表示 -->
-        <p>{{ favorite.name }}</p>
-        <img src="{{ favorite.image.url }}" alt="Miso Image" style="max-width: 100px; max-height: 100px;">
-        <p>{{ favorite.comment }}</p>
-        
-        <!-- お気に入り解除へのリンク -->
-        <a href="{% url 'accounts:toggle_favorite' pk=favorite.pk %}?next={% url 'accounts:my_favorite' %}">❤ お気に入り解除</a>
-      </li>
-    {% endfor %}
-  </ul>
-{% endblock %} {% endcomment %}
