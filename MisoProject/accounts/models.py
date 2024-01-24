@@ -3,7 +3,8 @@ from django.contrib.auth.models import(
     BaseUserManager, AbstractBaseUser, PermissionsMixin
 )
 from django.urls import reverse_lazy
-
+from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class UserManager(BaseUserManager):
@@ -61,11 +62,14 @@ class Used_Miso(models.Model):
     appearance_rating = models.IntegerField(choices=[(1, '1'), (2, '2'), (3, '3')])
     timestamp = models.DateTimeField(auto_now_add=True)
     used_miso = models.BooleanField(default=False)
-    favorites = models.ManyToManyField(Users, related_name='favorite_used_misos', blank=True)
-    
+    # favorites = models.ManyToManyField(User, related_name='favorite_used_misos', blank=True)
+    favorites = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='favorite_used_misos', blank=True)
+   
    
     def __str__(self):
         return self.name
+
+
 
 
 class Product(models.Model):

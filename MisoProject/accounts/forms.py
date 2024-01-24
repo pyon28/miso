@@ -81,6 +81,6 @@ class Used_MisoForm(forms.ModelForm):
         }
 
 
+
 class ToggleFavoriteForm(forms.Form):
-    # お気に入りのトグルに関連するフォームの定義
-    pass  # 必要に応じてフィールドを追加
+    used_miso_id = forms.IntegerField(widget=forms.HiddenInput())

@@ -157,6 +157,7 @@ class ProductListView(View):
         
         # お気に入り状態を取得してコンテキストに追加
         favorites = Used_Miso.objects.filter(favorites=request.user)
+        print(f"Favorites: {favorites}")  # デバッグ用
 
         return render(request, self.template_name, {
             'use_misos': use_misos,
@@ -177,7 +178,7 @@ class ProductListView(View):
 
             # お気に入り機能のトグル
             miso_pk = used_form.instance.pk
-            self.toggle_favorite(request, miso_pk)
+            self.toggle_favorite(request, miso_pk, 'accounts:my_favorites')
 
         
 
@@ -194,7 +195,7 @@ class ProductListView(View):
             'used_form': used_form,
         })
 
-    def toggle_favorite(self, request, pk):
+    def toggle_favorite(self, request, pk, redirect_url_name):
         miso = Used_Miso.objects.get(pk=pk)
         user = request.user
 
@@ -230,10 +231,32 @@ class ToggleFavoriteView(View):
         
         # ログに出力
         logging.debug(f'Redirecting to: {redirect_url}')
+        
+        # ログに出力
+        logger = logging.getLogger(__name__)
+        logger.debug('ToggleFavoriteView get method called')
+
+        # ログにお気に入りデータを表示
+        logger.debug(f'Favorites: {miso.favorites.all()}')
+
+        # リダイレクト先のURLを取得
+        redirect_url = request.GET.get('next', 'accounts:my_page')
+
+        # ログに出力
+        logging.debug(f'Redirecting to: {redirect_url}')
+
 
 
         # リダイレクト
         return redirect(redirect_url)
+        
+        
+        
+
+
+
+
+    
         
 
 # import logging       
@@ -263,12 +286,15 @@ class ToggleFavoriteView(View):
 #         return render(request, self.template_name, {'favorites': favorites})    
 
     
-logger = logging.getLogger(__name__)
 
 class MyFavoriteView(View):
     template_name = 'my_favorite.html'
 
     def get(self, request):
+        # ロガーを取得
+        logger = logging.getLogger(__name__)
+
+        
         # ログを追加
         logger.debug('MyFavoriteView get method called')
 
@@ -277,8 +303,7 @@ class MyFavoriteView(View):
         logger.debug(f'Favorites: {favorites}')
 
         # テンプレートにデータを渡す
-        return render(request, self.template_name, {'favorites': favorites})    
-            
+        return render(request, self.template_name, {'favorites': favorites})
             
 #使いたい味噌　編集    
 class EditUseView(View):
@@ -467,11 +492,9 @@ class MyPageView(View):
 
     def get(self, request, *args, **kwargs):
         favorites = Used_Miso.objects.filter(favorites=request.user)
-        
+        # favorites = Used_Miso.objects.filter(favorite=True)
         return render(request, self.template_name, {
             'favorites': favorites,
         })
-
-
 
 

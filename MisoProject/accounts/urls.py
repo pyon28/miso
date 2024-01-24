@@ -36,6 +36,7 @@ urlpatterns =[
     path('my_favorite/', MyFavoriteView.as_view(), name='my_favorite'),
     path('save_as_used/<int:pk>/', SaveAsUsedView.as_view(), name='save_as_used'),
 #     path('add_to_favorites/<int:pk>/', ToggleFavoriteView.as_view(), name='add_to_favorites'),
+   
  ]
 
     

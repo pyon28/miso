@@ -11,6 +11,9 @@
         <p>{{ favorite.name }}</p>
         <img src="{{ favorite.image.url }}" alt="Miso Image" style="max-width: 100px; max-height: 100px;">
         <p>{{ favorite.comment }}</p>
+        <p>{{ favorite.thoughts }}</p>
+        <p>味の評価: {{favorite.taste_rating }}</p>
+        <p>外見の評価: {{ favorite.appearance_rating }}</p>
         
         <!-- お気に入り解除へのリンク -->
         <a href="{% url 'accounts:toggle_favorite' pk=favorite.pk %}?next={% url 'accounts:my_favorite' %}">❤ お気に入り解除</a>
