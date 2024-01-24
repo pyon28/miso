@@ -178,7 +178,7 @@ class ProductListView(View):
 
             # お気に入り機能のトグル
             miso_pk = used_form.instance.pk
-            self.toggle_favorite(request, miso_pk, 'accounts:my_favorites')
+            self.toggle_favorite(request, miso_pk, 'accounts:my_page')
 
         
 
